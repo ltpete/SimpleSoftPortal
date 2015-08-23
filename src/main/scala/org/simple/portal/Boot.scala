@@ -6,8 +6,10 @@ import akka.io.IO
 import akka.pattern.ask
 import akka.util.Timeout
 import spray.can.Http
-import org.simple.portal.service.PortalService
+import org.simple.portal.view.PortalEndpoint
 import akka.actor.Actor
+import net.fwbrasil.activate.ActivateContext
+import net.fwbrasil.activate.storage.prevayler.PrevaylerStorage
  
 object Boot extends App {
  
@@ -23,7 +25,12 @@ object Boot extends App {
   
 }
 
-class PortalActor extends Actor with PortalService {
+object PersistenceContext extends ActivateContext {
+  val storage = new PrevaylerStorage
+  override protected def entitiesPackages = List("org.simple.portal.model")
+}
+
+class PortalActor extends Actor with PortalEndpoint {
 
   // the HttpService trait defines only one abstract member, which
   // connects the services environment to the enclosing actor or test
@@ -33,4 +40,6 @@ class PortalActor extends Actor with PortalService {
   // other things here, like request stream processing
   // or timeout handling
   def receive = runRoute(route)
+  
+  PersistenceContext.transactional{}
 }
