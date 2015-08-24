@@ -9,10 +9,12 @@
 
     <title>SimpleSoft Portal</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="app/app.css" rel="stylesheet">
     
-    <script src="js/angular.min.js"></script>
+    <!-- <script src="js/angular.min.js"></script> -->
+    <script src="js/angular.js"></script>
     <script src="js/ui-bootstrap-tpls-0.13.3.js"></script>
     
     <script src="app/app.js"></script>
@@ -63,10 +65,18 @@
         <div ng-show="employees">
 	        <h2>Employees:<h2>
 	        <div ng-repeat="employee in employees">
-	          <p style="color: {{employee.local ? 'red' : 'black'}};">Name: {{employee.firstName}} {{employee.lastName}}</p>
+	          <p style="color: {{employee.local ? 'red' : 'black'}};">
+	            Name: {{employee.firstName}} {{employee.lastName}} <button ng-click="delete(employee)"><i class="glyphicon glyphicon-remove"></i></button>
+	          </p>
 	        </div>
         </div>
       </div>
+    </div>
+    
+    <div>
+      First name: <input type="text" ng-model="firstName">
+      Last name: <input type="text" ng-model="lastName">
+      <button ng-click="postEmployees()">Create</button>
     </div>
 
     <div class="container">

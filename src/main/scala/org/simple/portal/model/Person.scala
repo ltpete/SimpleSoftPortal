@@ -3,7 +3,9 @@ package org.simple.portal.model
 import net.fwbrasil.activate.entity.Entity
 import net.fwbrasil.activate.migration.Migration
 
-class Person(var name: String) extends Entity
+import org.simple.portal.PersistenceContext._
+
+class Person(var firstName: String, var lastName: String) extends Entity
 
 class CreatePersonTableMigration extends Migration {
 
@@ -12,6 +14,8 @@ class CreatePersonTableMigration extends Migration {
   def up = {
     table[Person]
       .createTable(
-        _.column[String]("name"))
+        _.column[String]("firstName"),
+        _.column[String]("lastName")
+        )
   }
 }
